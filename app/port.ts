@@ -19,24 +19,3 @@ export const checkPort = (port: number): Promise<number> => {
       .listen(port);
   });
 };
-
-// export function checkPort(port: number) {
-//   return new Promise((resolve, reject) => {
-//     const server = net.createServer();
-
-//     server.once("error", (err: NodeJS.ErrnoException) => {
-//       if (err.code === "EADDRINUSE") {
-//         resolve(checkPort(port + 1));
-//       } else {
-//         reject(err);
-//       }
-//     });
-
-//     server.once("listening", () => {
-//       server.close();
-//       resolve(port);
-//     });
-
-//     server.listen(port);
-//   });
-// }
