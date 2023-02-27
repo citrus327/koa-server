@@ -1,9 +1,9 @@
-import http, { Server as HttpServer } from "node:http";
+import http from "node:http";
 import https from "node:https";
 import fs from "node:fs";
 import type Koa from "koa";
 import colors from "colors";
-import { checkPort } from "./port";
+import { checkPort } from "app/utils/port";
 
 let sslOptions = {
   key: fs.readFileSync("./example.key"),

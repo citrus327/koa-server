@@ -1,9 +1,9 @@
 import Koa, { Middleware } from "koa";
-import { crossOrigin } from "./middlewares/cross-origin";
-import { createServer } from "./server";
+import mount from "koa-mount";
+import { crossOrigin } from "app/middlewares/cross-origin";
+import { createServer } from "app/utils/server";
 import { staticServe } from "app/middlewares/static";
 import { HTTP_PORT } from "config/server";
-import mount from "koa-mount";
 
 const app = new Koa();
 
