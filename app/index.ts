@@ -24,7 +24,10 @@ const defaultMiddleWare: Middleware = async (ctx, next) => {
 };
 
 app.use(crossOrigin);
-app.use(staticServe("/site"));
+staticServe().forEach((o) => {
+  app.use(o);
+});
+
 app.use(mount("/api", defaultMiddleWare));
 
 app.on("error", (err) => {

@@ -12,7 +12,8 @@
     "paths": {
       "app/*": ["./app/*"],
       "config/*": ["./config/*"]
-    }
+    },
+    "sourceMap": true
   },
   "include": ["./app", "./config"]
 }
