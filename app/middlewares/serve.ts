@@ -4,9 +4,7 @@ import koaStatic from "koa-static";
 import mount from "koa-mount";
 import views from "koa-views";
 import type Koa from "koa";
-import { ASSETS_PUBLIC_PATH } from "config/server";
-
-const VIEWS_PATH = path.resolve(__dirname, "../../views");
+import { ASSETS_PUBLIC_PATH, VIEWS_PATH } from "config/server";
 
 // assets handling with koa-mount; koa-router does not work https://github.com/ZijianHe/koa-router/issues/446
 const assets = mount(

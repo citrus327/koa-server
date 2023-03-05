@@ -2,7 +2,7 @@
   "compilerOptions": {
     "allowJs": true,
     "moduleResolution": "Node",
-    "module": "commonjs",
+    "module": "esnext",
     "outDir": "./dist",
     "removeComments": true,
     "skipLibCheck": true,
