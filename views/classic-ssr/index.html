@@ -6,10 +6,53 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
+  <script crossorigin="anonymous" defer
+    src="https://cdn.bootcdn.net/ajax/libs/babel-standalone/7.21.2/babel.js"></script>
+  <script crossorigin="anonymous" defer
+    src="https://cdn.bootcdn.net/ajax/libs/react/18.2.0/umd/react.development.js"></script>
+  <script crossorigin="anonymous" defer
+    src="https://cdn.bootcdn.net/ajax/libs/react-dom/18.2.0/umd/react-dom.development.js"></script>
 </head>
 
 <body>
-  <div id="123"></div>
+  <div style="border: 1px solid red; padding: 14px">
+    <div>>Genereated by react CSR</div>
+    <div id="csr">
+      Loading...
+    </div>
+  </div>
+
+  <div style="border: 1px solid red; padding: 14px; margin-top: 1em;">
+    <div>>SSR</div>
+    username: {{data_from_server.username}}
+
+    <div> >Partial HTML from server to render in #ssr container</div>
+
+    <div id="ssr"></div>
+    <script>
+      async function fetchHtmlSegment() {
+        try {
+          const response = await fetch('/api/html');
+          const htmlText = await response.text();
+          // insert the HTML segment into the page
+          document.querySelector('#ssr').innerHTML = htmlText;
+        } catch (error) {
+          console.error(error);
+        }
+      }
+
+      fetchHtmlSegment()
+    </script>
+  </div>
 </body>
+
+<script type="text/babel" data-presets="env,react">
+  const App = () => {
+    return <h1>Hello World rendered by CSR</h1>;
+  };
+
+  const root = ReactDOM.createRoot(document.getElementById('csr'));
+  root.render(<App />)
+</script>
 
 </html>
