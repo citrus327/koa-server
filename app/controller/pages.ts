@@ -23,7 +23,6 @@ pages
     };
     await next();
   })
-  .get("/", handler)
   .get("/:path", handler);
 
 export { pages };
