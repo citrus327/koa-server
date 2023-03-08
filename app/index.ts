@@ -10,23 +10,27 @@ import { createServer } from "@utils/server";
 
 dotenv.config();
 
-const app = new Koa();
-app
-  .use(renderEngine)
-  .use(cors)
-  .use(assets)
-  .use(pages.routes())
-  .use(pages.allowedMethods())
-  .use(api.routes())
-  .use(api.allowedMethods())
-  .use((ctx) => {
-    ctx.status = 200;
-    if (!ctx.body) {
-      ctx.body = "you are lost";
-    }
-  })
-  .on("error", (err) => {
-    console.error("app error", err);
-  });
+const bootstrap = async () => {
+  const app = new Koa();
+  app
+    .use(renderEngine)
+    .use(cors)
+    .use(assets)
+    .use(pages.routes())
+    .use(pages.allowedMethods())
+    .use(api.routes())
+    .use(api.allowedMethods())
+    .use((ctx) => {
+      ctx.status = 200;
+      // if (!ctx.body) {
+      //   ctx.body = "you are lost";
+      // }
+    })
+    .on("error", (err) => {
+      console.error("app error", err);
+    });
 
-createServer(app).listen(HTTP_PORT);
+  createServer(app).listen(HTTP_PORT);
+};
+
+bootstrap();
