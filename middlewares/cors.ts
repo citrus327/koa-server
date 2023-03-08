@@ -1,6 +1,6 @@
 import { Middleware } from "koa";
 
-export const crossOrigin: Middleware = async (ctx, next) => {
+export const cors: Middleware = async (ctx, next) => {
   ctx.set("Access-Control-Allow-Origin", "*");
   ctx.set("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
   ctx.set("Access-Control-Allow-Headers", "Content-Type, X-Custom-Header");
