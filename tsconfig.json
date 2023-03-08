@@ -10,10 +10,12 @@
     "esModuleInterop": true,
     "baseUrl": ".",
     "paths": {
-      "app/*": ["./app/*"],
-      "config/*": ["./config/*"]
+      "@app/*": ["./app/*"],
+      "@config/*": ["./config/*"],
+      "@utils/*": ["./utils/*"],
+      "@middlewares/*": ["./middlewares/*"],
     },
     "sourceMap": true
   },
-  "include": ["./app", "./config"]
+  "include": ["./app", "./config", "middlewares", "utils"]
 }

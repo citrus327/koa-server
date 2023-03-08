@@ -1,12 +1,10 @@
 import Koa from "koa";
 import Router from "@koa/router";
 import dotenv from "dotenv";
-import { crossOrigin } from "./middlewares/cross-origin";
-import { serve } from "./middlewares/serve";
-import { createServer } from "./utils/server";
-import { HTTP_PORT } from "../config/server";
-import { chatgpt } from "./services/chatgpt";
-
+import { crossOrigin } from "@middlewares/cross-origin";
+import { serve } from "@middlewares/serve";
+import { createServer } from "@utils/server";
+import { HTTP_PORT } from "@config/server";
 dotenv.config();
 
 const app = new Koa();
@@ -15,7 +13,6 @@ const api = new Router({
   prefix: "/api",
 });
 
-api.get("/chatgpt", chatgpt);
 api.get("/", (ctx) => {
   ctx.set("Content-Type", "application/json");
   ctx.body = "hello";
