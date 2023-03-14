@@ -7,7 +7,7 @@ import { defineConfig } from "rollup";
 import tsTransformPaths from "@zerollup/ts-transform-paths";
 import path from "path";
 import replace from "@rollup/plugin-replace";
-import { terser } from "rollup-plugin-terser";
+import terser from "@rollup/plugin-terser";
 
 const config = defineConfig({
   input: path.resolve(process.cwd(), "./views/react-stream/index.tsx"),
