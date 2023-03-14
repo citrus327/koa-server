@@ -11,6 +11,7 @@
       "@config/*": ["./config/*"],
       "@utils/*": ["./utils/*"],
       "@middlewares/*": ["./middlewares/*"],
+      "@views/*": ["./views/*"]
     },
   },
   "module": {

@@ -8,12 +8,14 @@
     "skipLibCheck": true,
     "noImplicitAny": true,
     "esModuleInterop": true,
+    "jsx": "react",
     "baseUrl": ".",
     "paths": {
       "@app/*": ["./app/*"],
       "@config/*": ["./config/*"],
       "@utils/*": ["./utils/*"],
       "@middlewares/*": ["./middlewares/*"],
+      "@views/*": ["./views/*"],
     },
     "sourceMap": true
   },
