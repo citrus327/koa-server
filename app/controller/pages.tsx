@@ -20,7 +20,6 @@ const handleAssetsPath = (subPath: string) =>
 const defaultRender =
   (subPath: string): Router.Middleware =>
   async (ctx: Koa.Context, next) => {
-    console.log(ctx.data_from_server);
     await ctx.render(handleEntryPath(subPath), {
       ASSETS_PUBLIC_PATH: handleAssetsPath(subPath),
       data_from_server: ctx.data_from_server,
