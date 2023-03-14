@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import { Button } from "./Button";
-import "./index.css";
 
 const App: React.FC = () => {
   useEffect(() => {

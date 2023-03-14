@@ -11,51 +11,22 @@ const pages = new Router({
   prefix: "/page",
 });
 
-const render = (ctx: Koa.Context) => {
-  let didError = false;
+const handleEntryPath = (subPath: string) =>
+  path.join("./", subPath || "./", "./index.html");
 
-  /**
-   * NOTE: use promise to force koa waiting for streaming.
-   */
-  return new Promise<void>((resolve, reject) => {
-    const stream = renderToPipeableStream(<App />, {
-      bootstrapModules: ["/assets/react-stream/dist.js"],
-      onShellReady() {
-        ctx.respond = false;
-        ctx.res.statusCode = didError ? 500 : 200;
-        ctx.response.set("content-type", "text/html");
-        stream.pipe(ctx.res);
-        ctx.res.end();
-        resolve();
-      },
-      onError() {
-        didError = true;
-        reject();
-      },
-    });
-  });
-};
+const handleAssetsPath = (subPath: string) =>
+  path.join(ASSETS_PUBLIC_PATH, subPath || "./");
 
-const handler: Router.Middleware = async (ctx, next) => {
-  const target = path.join("./", ctx.params?.path || "./", "./index.html");
-  if (ctx.params?.path === "stream") {
-    // a regular node.js stream
-    ctx.type = "text/html";
-    ctx.body = fs.createReadStream(path.resolve(path.join(VIEWS_PATH, target)));
-  } else if (ctx.params?.path === "react-stream") {
-    // a pipeable stream created by ReactDom
-    await render(ctx);
-  } else {
-    await ctx.render(target, {
-      ASSETS_PUBLIC_PATH: path.join(
-        ASSETS_PUBLIC_PATH,
-        ctx.params.path || "./"
-      ),
+const defaultRender =
+  (subPath: string): Router.Middleware =>
+  async (ctx: Koa.Context, next) => {
+    console.log(ctx.data_from_server);
+    await ctx.render(handleEntryPath(subPath), {
+      ASSETS_PUBLIC_PATH: handleAssetsPath(subPath),
       data_from_server: ctx.data_from_server,
     });
-  }
-  await next();
-};
+    await next();
+  };
 
 pages
   .use(async (ctx, next) => {
@@ -65,6 +36,41 @@ pages
     };
     await next();
   })
-  .get("/:path", handler);
+  .get("/classic-ssr", defaultRender("./classic-ssr"))
+  .get("/site", defaultRender("./site"))
+  .get("/stream", async (ctx, next) => {
+    const target = handleEntryPath("./stream");
+    ctx.type = "text/html";
+    ctx.body = fs.createReadStream(path.resolve(path.join(VIEWS_PATH, target)));
+    await next();
+  })
+  .get("/react-stream", async (ctx, next) => {
+    const render = (ctx: Koa.Context) => {
+      let didError = false;
+
+      /**
+       * NOTE: use promise to force koa waiting for streaming.
+       */
+      return new Promise<void>((resolve, reject) => {
+        const stream = renderToPipeableStream(<App />, {
+          bootstrapModules: ["/assets/react-stream/dist.js"],
+          onShellReady() {
+            ctx.respond = false;
+            ctx.res.statusCode = didError ? 500 : 200;
+            ctx.response.set("content-type", "text/html");
+            stream.pipe(ctx.res);
+            ctx.res.end();
+            resolve();
+          },
+          onError() {
+            didError = true;
+            reject();
+          },
+        });
+      });
+    };
+    await render(ctx);
+    await next();
+  });
 
 export { pages };
