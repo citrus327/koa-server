@@ -27,14 +27,17 @@ const defaultRender =
     await next();
   };
 
+const setup: Router.Middleware = async (ctx, next) => {
+  ctx.data_from_server = {
+    username: "thisisausername",
+    password: "thisisapassword",
+  };
+  await next();
+};
+
 pages
-  .use(async (ctx, next) => {
-    ctx.data_from_server = {
-      username: "thisisausername",
-      password: "thisisapassword",
-    };
-    await next();
-  })
+  .use(setup)
+  .get("/", defaultRender("./portal"))
   .get("/classic-ssr", defaultRender("./classic-ssr"))
   .get("/site", defaultRender("./site"))
   .get("/stream", async (ctx, next) => {
