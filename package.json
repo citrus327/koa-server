@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node -r '@swc/register' app/index.ts",
+    "middleware-test": "node -r '@swc/register' app/middleware-test.ts",
     "build:client": "rollup -c",
     "watch:client": "rollup -c -w"
   },

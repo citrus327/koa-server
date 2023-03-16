@@ -73,6 +73,7 @@ pages
     };
     await render(ctx);
     await next();
-  });
+  })
+  .get("/server-push", async (ctx, next) => {});
 
 export { pages };
