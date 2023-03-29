@@ -21,9 +21,9 @@ export const createServer = (app: Koa) => {
       httpServer.listen(httpPort, () => {
         console.log(`http: ${colors.green(`http://localhost:${httpPort}`)}`);
       });
-      // httpsServer.listen(httpsPort, () => {
-      //   console.log(`https: ${colors.green(`https://localhost:${httpsPort}`)}`);
-      // });
+      httpsServer.listen(httpsPort, () => {
+        console.log(`https: ${colors.green(`https://localhost:${httpsPort}`)}`);
+      });
     },
   };
 };

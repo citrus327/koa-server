@@ -74,6 +74,14 @@ pages
     await render(ctx);
     await next();
   })
-  .get("/server-push", defaultRender("./server-push"));
+  .get("/server-push", async (ctx, next) => {
+    // https://zhuanlan.zhihu.com/p/26757514
+    await ctx.render(handleEntryPath("./server-push"), {
+      ASSETS_PUBLIC_PATH: handleAssetsPath("./server-push"),
+      data_from_server: ctx.data_from_server,
+    });
+
+    await next();
+  });
 
 export { pages };
