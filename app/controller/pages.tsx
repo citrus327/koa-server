@@ -74,6 +74,6 @@ pages
     await render(ctx);
     await next();
   })
-  .get("/server-push", async (ctx, next) => {});
+  .get("/server-push", defaultRender("./server-push"));
 
 export { pages };
