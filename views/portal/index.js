@@ -20,6 +20,9 @@ const App = () => {
           <li>
             <a href="/page/server-push">Server Push</a>
           </li>
+          <li>
+            <a href="/page/sockets">Web Sockets</a>
+          </li>
         </ul>
       </section>
 

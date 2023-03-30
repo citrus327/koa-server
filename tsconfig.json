@@ -17,7 +17,7 @@
       "@middlewares/*": ["./middlewares/*"],
       "@views/*": ["./views/*"],
     },
-    "sourceMap": true
+    "sourceMap": true,
   },
-  "include": ["./app", "./config", "middlewares", "utils"]
+  "include": ["./app", "./config", "./middlewares", "./utils", "./views"]
 }

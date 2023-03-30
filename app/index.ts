@@ -8,6 +8,7 @@ import { pages } from "@app/controller/pages";
 import { api } from "@app/controller/api";
 import { HTTP_PORT } from "@config/server";
 import { createServer } from "@utils/server";
+import { sockets } from "@app/controller/sockets";
 
 dotenv.config();
 
@@ -17,6 +18,7 @@ const bootstrap = async () => {
     .use(renderEngine)
     .use(cors)
     .use(assets)
+    .use(sockets())
     .use(pages.routes())
     .use(pages.allowedMethods())
     .use(api.routes())

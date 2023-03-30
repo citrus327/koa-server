@@ -12,6 +12,11 @@ import json from "@rollup/plugin-json";
 import external from "rollup-plugin-peer-deps-external";
 import colors from "colors";
 import yargs from "yargs";
+
+const r = (subPath: string) => {
+  return path.resolve(process.cwd(), subPath);
+};
+
 const plugins = [
   resolve(),
   commonjs(),
@@ -51,16 +56,28 @@ const plugins = [
 
 const resolveOptions = (command: "server" | "client") => {
   if (command === "client") {
-    return defineConfig({
-      input: path.resolve(process.cwd(), "./views/react-stream/index.tsx"),
-      output: {
-        file: path.resolve(process.cwd(), "./views/react-stream/dist.js"),
-        format: "esm",
-        exports: "named",
-        sourcemap: "inline",
-      },
-      plugins,
-    });
+    return [
+      defineConfig({
+        input: r("./views/react-stream/index.tsx"),
+        output: {
+          file: r("./views/react-stream/dist.js"),
+          format: "esm",
+          exports: "named",
+          sourcemap: "inline",
+        },
+        plugins,
+      }),
+      defineConfig({
+        input: r("./views/sockets/index.tsx"),
+        output: {
+          file: r("./views/sockets/dist.js"),
+          format: "esm",
+          exports: "named",
+          sourcemap: "inline",
+        },
+        plugins,
+      }),
+    ];
   } else {
     return defineConfig({
       input: path.resolve(process.cwd(), "./app/index.ts"),
@@ -82,9 +99,20 @@ const resolveOptions = (command: "server" | "client") => {
 
 const build = async () => {
   const exe = async (command: "server" | "client") => {
-    let bundle = await rollup(resolveOptions(command));
-    await bundle.write(resolveOptions(command).output as OutputOptions);
-    bundle && (await bundle.close());
+    const options = resolveOptions(command);
+    if (Array.isArray(options)) {
+      await Promise.all(
+        options.map(async (option) => {
+          let bundle = await rollup(option);
+          await bundle.write(option.output as OutputOptions);
+          bundle && (await bundle.close());
+        })
+      );
+    } else {
+      let bundle = await rollup(options);
+      await bundle.write(options.output as OutputOptions);
+      bundle && (await bundle.close());
+    }
   };
 
   try {
