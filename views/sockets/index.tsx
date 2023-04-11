@@ -2,6 +2,7 @@ import { Button } from "./component/button";
 import React, { useEffect, useState, useRef } from "react";
 import { createRoot } from "react-dom/client";
 import type { Socket } from "socket.io-client";
+import { fromEvent } from "rxjs";
 
 const App = () => {
   const [messages, setMessages] = useState<{ message: string; user: string }[]>(
@@ -20,13 +21,16 @@ const App = () => {
       );
     }
 
-    $socket.current.on("chat message", (e) => {
+    const chat$ = fromEvent($socket.current, "chat message");
+    const reload$ = fromEvent($socket.current, "reload");
+
+    chat$.subscribe((x) => {
       setMessages((v) => {
-        return [...v, e];
+        return [...v, x];
       });
     });
 
-    $socket.current.on("reload", (e) => {
+    reload$.subscribe((x) => {
       window.location.reload();
     });
   }, []);

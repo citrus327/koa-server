@@ -41,6 +41,7 @@ specifiers:
   rollup: ^2.70.2
   rollup-plugin-peer-deps-external: ^2.2.4
   rollup-plugin-postcss: ^4.0.2
+  rxjs: ^7.8.0
   socket.io: ^4.6.1
   socket.io-client: ^4.6.1
   tslib: ^2.3.1
@@ -59,6 +60,7 @@ dependencies:
   mustache: registry.npmmirror.com/mustache/4.2.0
   react: registry.npmmirror.com/react/18.2.0
   react-dom: registry.npmmirror.com/react-dom/18.2.0_react@18.2.0
+  rxjs: registry.npmmirror.com/rxjs/7.8.0
   socket.io: registry.npmmirror.com/socket.io/4.6.1
   socket.io-client: registry.npmmirror.com/socket.io-client/4.6.1
   tslib: registry.npmmirror.com/tslib/2.5.0
@@ -4914,6 +4916,14 @@ packages:
     version: 1.2.0
     dependencies:
       queue-microtask: registry.npmmirror.com/queue-microtask/1.2.3
+    dev: false
+
+  registry.npmmirror.com/rxjs/7.8.0:
+    resolution: {integrity: sha512-F2+gxDshqmIub1KdvZkaEfGDwLNpPvk9Fs6LD/MyQxNgMds/WH9OdDDXOmxUZpME+iSK3rQCctkL0DYyytUqMg==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/rxjs/-/rxjs-7.8.0.tgz}
+    name: rxjs
+    version: 7.8.0
+    dependencies:
+      tslib: registry.npmmirror.com/tslib/2.5.0
     dev: false
 
   registry.npmmirror.com/safe-buffer/5.2.1:
