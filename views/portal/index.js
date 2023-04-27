@@ -23,11 +23,10 @@ const App = () => {
           <li>
             <a href="/page/sockets">Web Sockets</a>
           </li>
+          <li>
+            <a href="/page/workers">Workers</a>
+          </li>
         </ul>
-      </section>
-
-      <section>
-        <h2>Rest API</h2>
       </section>
     </main>
   );

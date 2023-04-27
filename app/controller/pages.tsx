@@ -40,6 +40,7 @@ pages
   .get("/", defaultRender("./portal"))
   .get("/classic-ssr", defaultRender("./classic-ssr"))
   .get("/sockets", defaultRender("./sockets"))
+  .get("/workers", defaultRender("./workers"))
   .get("/site", defaultRender("./site"))
   .get("/stream", async (ctx, next) => {
     const target = handleEntryPath("./stream");

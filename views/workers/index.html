@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portal</title>
+  <script crossorigin="anonymous" defer
+    src="https://cdn.bootcdn.net/ajax/libs/babel-standalone/7.21.2/babel.js"></script>
+  <script crossorigin="anonymous" defer
+    src="https://cdn.bootcdn.net/ajax/libs/react/18.2.0/umd/react.development.js"></script>
+  <script crossorigin="anonymous" defer
+    src="https://cdn.bootcdn.net/ajax/libs/react-dom/18.2.0/umd/react-dom.development.js"></script>
+</head>
+
+<body>
+
+  <div id="root"></div>
+
+  <script>
+    window.PUBLIC_PATH = "{{{ASSETS_PUBLIC_PATH}}}"
+  </script>
+
+  <script type="text/babel" data-presets="env,react" src="{{{ASSETS_PUBLIC_PATH}}}/index.js"></script>
+</body>
+
+</html>
