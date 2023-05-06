@@ -125,9 +125,9 @@ const build = async () => {
 };
 
 const dev = async () => {
-  const exe = async (command: "server" | "client") => {
+  const exe = async (command: "client") => {
     const watcher = watch(resolveOptions(command));
-    let color = command === "server" ? "yellow" : "blue";
+    let color = "blue";
     console.log(colors[color].bold(`[${command.toUpperCase()}] Watching...`));
     watcher.on("event", (e) => {
       if (e.code === "BUNDLE_START") {
@@ -151,7 +151,6 @@ const dev = async () => {
     });
   };
 
-  exe("server");
   exe("client");
 };
 

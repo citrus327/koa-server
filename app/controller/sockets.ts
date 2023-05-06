@@ -12,6 +12,9 @@ const createSocketServer = (
   if (!io) {
     io = new Server(server, {
       path: "/my-sockets",
+      cors: {
+        origin: "*",
+      },
     });
 
     io.on("connection", onConnection);

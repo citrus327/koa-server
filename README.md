@@ -31,3 +31,5 @@ This is a Node.js app built with Koa. And it's for personal use only.
 - [ ] login system with JWT
 - [ ] http2 server push
 - [ ] mess around with cache (even with redis)
+- [ ] server component
+- [ ] relay + GraphQL

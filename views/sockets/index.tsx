@@ -1,4 +1,3 @@
-import { Button } from "./component/button";
 import React, { useEffect, useState, useRef } from "react";
 import { createRoot } from "react-dom/client";
 import type { Socket } from "socket.io-client";
@@ -62,7 +61,6 @@ const App = () => {
         >
           Send
         </button>
-        <Button />
       </form>
     </main>
   );

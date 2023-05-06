@@ -39,6 +39,7 @@ pages
   .use(setup)
   .get("/", defaultRender("./portal"))
   .get("/classic-ssr", defaultRender("./classic-ssr"))
+  .get("/react-sample", defaultRender("./react-sample"))
   .get("/sockets", defaultRender("./sockets"))
   .get("/site", defaultRender("./site"))
   .get("/stream", async (ctx, next) => {
