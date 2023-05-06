@@ -54,70 +54,41 @@ const plugins = [
   }),
 ];
 
-const resolveOptions = (command: "server" | "client") => {
-  if (command === "client") {
-    return [
-      defineConfig({
-        input: r("./views/react-stream/index.tsx"),
-        output: {
-          file: r("./views/react-stream/dist.js"),
-          format: "esm",
-          exports: "named",
-          sourcemap: "inline",
-        },
-        plugins,
-      }),
-      defineConfig({
-        input: r("./views/sockets/index.tsx"),
-        output: {
-          file: r("./views/sockets/dist.js"),
-          format: "esm",
-          exports: "named",
-          sourcemap: "inline",
-        },
-        plugins,
-      }),
-    ];
-  } else {
-    return defineConfig({
-      input: path.resolve(process.cwd(), "./app/index.ts"),
+const resolveOptions = () => {
+  return [
+    defineConfig({
+      input: r("./views/react-stream/index.tsx"),
       output: {
-        file: path.resolve(process.cwd(), "./dist/index.mjs"),
+        file: r("./views/react-stream/dist.js"),
         format: "esm",
         exports: "named",
         sourcemap: "inline",
       },
-      plugins: [
-        ...plugins,
-        external({
-          includeDependencies: true,
-        }),
-      ],
-    });
-  }
+      plugins,
+    }),
+    defineConfig({
+      input: r("./views/sockets/index.tsx"),
+      output: {
+        file: r("./views/sockets/dist.js"),
+        format: "esm",
+        exports: "named",
+        sourcemap: "inline",
+      },
+      plugins,
+    }),
+  ];
 };
 
 const build = async () => {
-  const exe = async (command: "server" | "client") => {
-    const options = resolveOptions(command);
-    if (Array.isArray(options)) {
-      await Promise.all(
-        options.map(async (option) => {
-          let bundle = await rollup(option);
-          await bundle.write(option.output as OutputOptions);
-          bundle && (await bundle.close());
-        })
-      );
-    } else {
-      let bundle = await rollup(options);
-      await bundle.write(options.output as OutputOptions);
-      bundle && (await bundle.close());
-    }
-  };
-
   try {
-    await exe("server");
-    await exe("client");
+    const options = resolveOptions();
+    await Promise.all(
+      options.map(async (option) => {
+        let bundle = await rollup(option);
+        await bundle.write(option.output as OutputOptions);
+        bundle && (await bundle.close());
+      })
+    );
     process.exit(0);
   } catch (e) {
     process.exit(1);
@@ -125,37 +96,33 @@ const build = async () => {
 };
 
 const dev = async () => {
-  const exe = async (command: "client") => {
-    const watcher = watch(resolveOptions(command));
+  try {
+    const watcher = watch(resolveOptions());
     let color = "blue";
-    console.log(colors[color].bold(`[${command.toUpperCase()}] Watching...`));
+    console.log(colors[color].bold(`[Views] Watching...`));
     watcher.on("event", (e) => {
       if (e.code === "BUNDLE_START") {
-        console.log(
-          colors[color].bold(`[${command.toUpperCase()}] Bundling...`)
-        );
+        console.log(colors[color].bold(`[Views] Bundling...`));
       }
       if (e.code === "ERROR") {
         e.result?.close();
-        console.log(
-          colors.red.bold(`something wrong when bundling ${command} build`)
-        );
+        console.log(colors.red.bold(`something wrong when bundling`));
         console.error("e", e.error);
       }
       if (e.code === "BUNDLE_END") {
         e.result?.close();
       }
       if (e.code === "END") {
-        console.log(colors[color].bold(`[${command.toUpperCase()}] Done!`));
+        console.log(colors[color].bold(`[Views] Done!`));
       }
     });
-  };
-
-  exe("client");
+  } catch (e) {
+    process.exit(1);
+  }
 };
 
 yargs
   .scriptName("bundler")
-  .command("build [name]", "build", build)
-  .command("dev [name]", "dev", dev)
+  .command("build", "build", build)
+  .command("dev", "dev", dev)
   .help().argv;

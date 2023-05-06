@@ -6,7 +6,6 @@
   "scripts": {
     "start": "tsx watch app/index.ts",
     "middleware-test": "node -r '@swc/register' app/middleware-test.ts",
-    "build": "node -r '@swc/register' bundle.ts build",
     "dev": "node -r '@swc/register' bundle.ts dev"
   },
   "repository": {
