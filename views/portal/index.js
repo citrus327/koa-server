@@ -26,6 +26,9 @@ const App = () => {
           <li>
             <a href="/page/workers">Workers</a>
           </li>
+          <li>
+            <a href="/page/sqlite3">sqlite3</a>
+          </li>
         </ul>
       </section>
     </main>

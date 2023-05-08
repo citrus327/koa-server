@@ -37,8 +37,8 @@ This is a Node.js app built with Koa. And it's for personal use only.
 - [x] classic SSR built with `jQuery` and `react`
 - [x] classic CSR built with `react`
 - [x] SSR react 18 `renderToPipeableStream`
-- [ ] login system with cookie
-- [ ] login system with JWT
+- [x] login system with cookie
+- [x] login system with JWT
 - [ ] http2 server push
 - [ ] mess around with cache (even with redis)
 - [ ] server component

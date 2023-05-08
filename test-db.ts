@@ -1,62 +1,41 @@
-import sqlite3 from "sqlite3";
-// https://github.com/TryGhost/node-sqlite3/wiki/API
-const db = new sqlite3.Database("./test.db");
+import { Sequelize, DataTypes } from "sequelize";
+import path from "node:path";
 
-interface PostDO {
-  id: Number;
-  title: string;
-  description: string;
-  createDate: string;
-  author: string;
-}
+const sequelize = new Sequelize({
+  dialect: "sqlite",
+  storage: path.resolve(process.cwd(), "./test.db"),
+});
 
-const createPostTable = () => {
-  const query = `
-    CREATE TABLE IF NOT EXISTS posts (
-    id integer PRIMARY KEY,
-    title text,
-    description text,
-    createDate text,
-    author text
-  )`;
+const User = sequelize.define("User", {
+  id: {
+    type: DataTypes.INTEGER,
+    autoIncrement: true,
+    primaryKey: true,
+  },
+  firstName: {
+    type: DataTypes.STRING,
+  },
+  lastName: {
+    type: DataTypes.STRING,
+  },
+});
 
-  return db.run(query);
+// `sequelize.define` also returns the model
+console.log(User === sequelize.models.User); // true
+
+const exe = async () => {
+  try {
+    await sequelize.authenticate();
+    console.log("Connection has been established successfully.");
+    await sequelize.sync();
+
+    const jane = await User.create({ firstName: "Jane" });
+    const hao = await User.create({ firstName: "Hao2" });
+    const users = await User.findAll();
+    console.log(users.length);
+  } catch (error) {
+    console.error("Unable to connect to the database:", error);
+  }
 };
 
-createPostTable();
-
-const insert = () => {
-  const query = `INSERT INTO posts (id, title, description, createDate, author) values (
-    $id,
-    $title,
-    $description,
-    $createDate,
-    $author
-  )`;
-
-  db.run(query, {
-    $id: parseInt((Math.random() * 100).toFixed(0)),
-    $title: "A Sqlite Random Title",
-    $description: "Sit sint sint pariatur consectetur.",
-    $createDate: "2020-02-22",
-    $author: "Hao Peng",
-  });
-};
-
-insert();
-
-const query = () => {
-  db.all<PostDO>(`SELECT * from posts`, (err, rows) => {
-    if (err) {
-      throw err;
-    }
-
-    rows.forEach((row) => {
-      console.log(`${row.id}, ${row.title}, ${row.description}`);
-    });
-  });
-};
-
-query();
-
-db.close();
+exe();

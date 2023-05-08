@@ -38,6 +38,7 @@ const setup: Router.Middleware = async (ctx, next) => {
 pages
   .use(setup)
   .get("/", defaultRender("./portal"))
+  .get("/sqlite3", defaultRender("./sqlite3"))
   .get("/classic-ssr", defaultRender("./classic-ssr"))
   .get("/react-sample", defaultRender("./react-sample"))
   .get("/sockets", defaultRender("./sockets"))
