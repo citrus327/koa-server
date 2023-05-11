@@ -9,16 +9,20 @@ import { rest } from "@app/controller/rest";
 import { HTTP_PORT } from "@config/server";
 import { createServer } from "@utils/server";
 import { sockets } from "@app/controller/sockets";
-
+import bodyparser from "koa-bodyparser";
+import { initializeDataBase } from "@vendors/sequelize";
 dotenv.config();
 
 const bootstrap = async () => {
+  initializeDataBase();
+
   const app = new Koa();
   app
     .use(renderEngine)
     .use(cors)
     .use(assets)
     .use(sockets())
+    .use(bodyparser())
     .use(pages.routes())
     .use(pages.allowedMethods())
     .use(rest.routes())

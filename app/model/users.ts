@@ -3,21 +3,23 @@ import {
   Column,
   Model,
   CreatedAt,
-  UpdatedAt,
-  AutoIncrement,
   PrimaryKey,
+  AutoIncrement,
+  DataType,
+  UpdatedAt,
 } from "sequelize-typescript";
 
 @Table
 export class User extends Model {
-  @AutoIncrement
   @PrimaryKey
+  @AutoIncrement
+  @Column({ type: DataType.INTEGER })
   id: number;
 
-  @Column
+  @Column({ type: DataType.STRING })
   name: string;
 
-  @Column
+  @Column({ type: DataType.DATE })
   birthday: Date;
 
   @CreatedAt

@@ -1,13 +1,40 @@
 import { Sequelize } from "sequelize-typescript";
 import path from "node:path";
 import { User } from "@app/model/users";
-import { Post } from "@app/model/posts";
+import chalk from "chalk";
 
 const sequelize = new Sequelize({
   dialect: "sqlite",
   storage: path.resolve(process.cwd(), "./test.db"),
-  models: [User, Post],
+  models: [User],
+  logging: (...args) => {
+    console.log(chalk.blue(`[DB] ${args}`));
+  },
 });
+
+export const initializeDataBase = () => {
+  sequelize
+    .authenticate()
+    .then(() => {
+      console.log(
+        chalk.blue(
+          `[DB] Connection to the database has been established successfully.`
+        )
+      );
+    })
+    .catch((err) => {
+      console.error(chalk.red("[DB] Unable to connect to the database:", err));
+    })
+    .then(() => sequelize.sync())
+    .then(() => {
+      console.log(
+        chalk.blue(`[DB] The database has been synced successfully.`)
+      );
+    })
+    .catch((err) => {
+      console.error(chalk.red("[DB] Unable to sync to the database:", err));
+    });
+};
 
 export { sequelize };
 

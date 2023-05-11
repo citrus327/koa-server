@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "allowJs": true,
+    "target": "ES6",
     "moduleResolution": "Node",
     "module": "esnext",
     "outDir": "./dist",
@@ -9,6 +10,7 @@
     "noImplicitAny": true,
     "esModuleInterop": true,
     "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
     "jsx": "react",
     "baseUrl": ".",
     "paths": {
