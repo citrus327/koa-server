@@ -8,6 +8,7 @@
     "skipLibCheck": true,
     "noImplicitAny": true,
     "esModuleInterop": true,
+    "experimentalDecorators": true,
     "jsx": "react",
     "baseUrl": ".",
     "paths": {
@@ -16,8 +17,9 @@
       "@utils/*": ["./utils/*"],
       "@middlewares/*": ["./middlewares/*"],
       "@views/*": ["./views/*"],
+      "@vendors/*": ["./vendors/*"],
     },
     "sourceMap": true,
   },
-  "include": ["./app", "./config", "./middlewares", "./utils", "./views"]
+  "include": ["./app", "./config", "./middlewares", "./utils", "./views", "vendors"]
 }

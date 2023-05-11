@@ -8,7 +8,7 @@ const App = () => {
       <section>
         <button
           onClick={async () => {
-            const res = await (await fetch("/api/db")).json();
+            const res = await (await fetch("/rest/db")).json();
             setDbResult(res);
           }}
         >

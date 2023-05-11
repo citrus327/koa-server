@@ -20,9 +20,6 @@ const User = sequelize.define("User", {
   },
 });
 
-// `sequelize.define` also returns the model
-console.log(User === sequelize.models.User); // true
-
 const exe = async () => {
   try {
     await sequelize.authenticate();

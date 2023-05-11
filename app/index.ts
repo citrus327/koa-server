@@ -5,7 +5,7 @@ import { renderEngine } from "@middlewares/render-engine";
 import { assets } from "@middlewares/assets";
 import { errorHandler } from "@middlewares/error-handler";
 import { pages } from "@app/controller/pages";
-import { api } from "@app/controller/api";
+import { rest } from "@app/controller/rest";
 import { HTTP_PORT } from "@config/server";
 import { createServer } from "@utils/server";
 import { sockets } from "@app/controller/sockets";
@@ -21,8 +21,8 @@ const bootstrap = async () => {
     .use(sockets())
     .use(pages.routes())
     .use(pages.allowedMethods())
-    .use(api.routes())
-    .use(api.allowedMethods())
+    .use(rest.routes())
+    .use(rest.allowedMethods())
     .use(async (ctx, next) => {
       if (ctx.path === "/") {
         ctx.redirect("/page");
